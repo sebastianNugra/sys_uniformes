@@ -2,7 +2,6 @@
 # Spring Boot / Maven
 # =========================
 backend/target/
-backend/.mvn/wrapper/maven-wrapper.jar
 !backend/**/src/main/**/target/
 !backend/**/src/test/**/target/
 
@@ -44,3 +43,12 @@ build/
 *.log
 .DS_Store
 Thumbs.db
+
+# =========================
+# Local environment / secrets
+# =========================
+.env
+.env.*
+backend/src/main/resources/application-local.properties
+backend/src/main/resources/application-dev.properties
+backend/src/main/resources/application-prod.properties
