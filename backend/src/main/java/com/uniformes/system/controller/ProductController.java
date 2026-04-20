@@ -19,22 +19,28 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<Product> getAll() {
+    public List<Product> getAllProducts() {
         return service.getAllProducts();
     }
 
     @PostMapping
-    public Product create(@RequestBody Product product) {
+    public Product createProduct(@RequestBody Product product) {
         return service.createProduct(product);
     }
 
     @GetMapping("/{id}")
-    public Product getById(@PathVariable Long id) {
+    public Product getProductById(@PathVariable Long id) {
         return service.getProductById(id);
     }
 
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable Long id,
+            @RequestBody Product product) {
+        return service.updateProduct(id, product);
+    }
+
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void deleteProduct(@PathVariable Long id) {
         service.deleteProduct(id);
     }
 }
