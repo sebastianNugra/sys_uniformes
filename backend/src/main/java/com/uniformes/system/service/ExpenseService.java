@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.uniformes.system.exception.ResourceNotFoundException;
-import com.uniformes.system.model.Expense;
+import com.uniformes.system.model.Expenses;
 import com.uniformes.system.repository.ExpenseRepository;
 
 @Service
@@ -17,15 +17,15 @@ public class ExpenseService {
         this.repository = repository;
     }
 
-    public List<Expense> getAllExpenses() {
+    public List<Expenses> getAllExpenses() {
         return repository.findAll();
     }
 
-    public Expense createExpense(Expense expense) {
+    public Expenses createExpense(Expenses expense) {
         return repository.save(expense);
     }
 
-    public Expense getExpenseById(Long id) {
+    public Expenses getExpenseById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Expense not found"));
     }

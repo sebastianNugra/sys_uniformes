@@ -10,7 +10,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Expense {
+public class Expenses {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

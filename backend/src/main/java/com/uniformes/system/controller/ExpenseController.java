@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 
-import com.uniformes.system.model.Expense;
+import com.uniformes.system.model.Expenses;
 import com.uniformes.system.service.ExpenseService;
 
 @RestController
@@ -19,17 +19,17 @@ public class ExpenseController {
     }
 
     @GetMapping
-    public List<Expense> getAllExpenses() {
+    public List<Expenses> getAllExpenses() {
         return service.getAllExpenses();
     }
 
     @PostMapping
-    public Expense createExpense(@RequestBody Expense expense) {
+    public Expenses createExpense(@RequestBody Expenses expense) {
         return service.createExpense(expense);
     }
 
     @GetMapping("/{id}")
-    public Expense getExpenseById(@PathVariable Long id) {
+    public Expenses getExpenseById(@PathVariable Long id) {
         return service.getExpenseById(id);
     }
 
