@@ -48,7 +48,20 @@ Thumbs.db
 # Local environment / secrets
 # =========================
 .env
-.env.*
+backend/.env
+backend/.env.*
 backend/src/main/resources/application-local.properties
 backend/src/main/resources/application-dev.properties
 backend/src/main/resources/application-prod.properties
+
+# =========================
+# Frontend - Next.js
+# =========================
+frontend/.next/
+frontend/node_modules/
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+frontend/.env.development
+frontend/out/
+frontend/dist/
