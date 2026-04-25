@@ -1,111 +1,57 @@
-"use client";
+import { getSales } from "@/services/api";
 
-import { useEffect, useState } from "react";
-import { createSale, getProducts } from "@/services/api";
-
-export default function SalesPage() {
-  const [products, setProducts] = useState<any[]>([]);
-  const [selectedProductId, setSelectedProductId] =
-    useState("");
-  const [quantity, setQuantity] = useState("");
-  const [paymentMethod, setPaymentMethod] =
-    useState("Efectivo");
-
-  useEffect(() => {
-    loadProducts();
-  }, []);
-
-  const loadProducts = async () => {
-    const data = await getProducts();
-    setProducts(data);
-  };
-
-  const handleSale = async (
-    e: React.FormEvent
-  ) => {
-    e.preventDefault();
-
-    const product = products.find(
-      (p) => p.id === Number(selectedProductId)
-    );
-
-    if (!product) return;
-
-    await createSale({
-      product,
-      quantity: Number(quantity),
-      paymentMethod,
-    });
-
-    alert("Venta registrada correctamente");
-
-    setSelectedProductId("");
-    setQuantity("");
-    setPaymentMethod("Efectivo");
-
-    loadProducts();
-  };
+export default async function SalesPage() {
+  const sales = await getSales();
 
   return (
     <main className="p-8">
       <h1 className="text-3xl font-bold mb-6">
-        Registrar Venta
+        Historial de Ventas
       </h1>
 
-      <form
-        onSubmit={handleSale}
-        className="grid gap-4 max-w-md"
-      >
-        <select
-          value={selectedProductId}
-          onChange={(e) =>
-            setSelectedProductId(e.target.value)
-          }
-          className="border rounded-lg p-3"
-        >
-          <option value="">
-            Selecciona producto
-          </option>
+      <div className="overflow-x-auto">
+        <table className="w-full border border-gray-300 rounded-lg">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-3 text-left">Producto</th>
+              <th className="p-3 text-left">Cantidad</th>
+              <th className="p-3 text-left">Total</th>
+              <th className="p-3 text-left">Método</th>
+              <th className="p-3 text-left">Fecha</th>
+            </tr>
+          </thead>
 
-          {products.map((product) => (
-            <option
-              key={product.id}
-              value={product.id}
-            >
-              {product.name} - Stock:{" "}
-              {product.stock}
-            </option>
-          ))}
-        </select>
+          <tbody>
+            {sales.map((sale: any) => (
+              <tr key={sale.id} className="border-t">
+                <td className="p-3">
+                  {sale.product.name}
+                </td>
 
-        <input
-          type="number"
-          placeholder="Cantidad"
-          value={quantity}
-          onChange={(e) =>
-            setQuantity(e.target.value)
-          }
-          className="border rounded-lg p-3"
-        />
+                <td className="p-3">
+                  {sale.quantity}
+                </td>
 
-        <select
-          value={paymentMethod}
-          onChange={(e) =>
-            setPaymentMethod(e.target.value)
-          }
-          className="border rounded-lg p-3"
-        >
-          <option>Efectivo</option>
-          <option>Transferencia</option>
-        </select>
+                <td className="p-3">
+                  ${sale.total}
+                </td>
 
-        <button
-          type="submit"
-          className="rounded-lg border p-3"
-        >
-          Vender
-        </button>
-      </form>
+                <td className="p-3">
+                  {sale.paymentMethod}
+                </td>
+
+                <td className="p-3">
+                  {sale.createdAt
+                    ? new Date(
+                        sale.createdAt
+                      ).toLocaleString()
+                    : "Sin fecha"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </main>
   );
 }

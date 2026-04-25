@@ -78,3 +78,13 @@ export function createSale(sale: Sale) {
 export function getLowStockCount() {
   return fetchAPI(`${API_BASE_URL}/products/low-stock`);
 }
+
+export function getSales() {
+  return fetchAPI(`${API_BASE_URL}/sales`);
+}
+
+export function getLowStockProducts() {
+  return fetchAPI(
+    `${API_BASE_URL}/products/low-stock/list`
+  );
+}
