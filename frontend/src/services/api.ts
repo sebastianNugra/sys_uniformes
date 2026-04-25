@@ -1,76 +1,80 @@
 const API_BASE_URL = "http://localhost:8080/api";
 
-export async function getFinancialSummary() {
-  const response = await fetch(`${API_BASE_URL}/dashboard/summary`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch financial summary");
-  }
-
-  return response.json();
-}
-
-export async function getProducts() {
-  const response = await fetch(`${API_BASE_URL}/products`);
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch products");
-  }
-
-  return response.json();
-}
-
-export async function createProduct(product: {
+export type Product = {
+  id?: number;
   name: string;
   size: string;
   price: number;
   stock: number;
-}) {
-  const response = await fetch(`${API_BASE_URL}/products`, {
+};
+
+export type Sale = {
+  product: Product;
+  quantity: number;
+  paymentMethod: string;
+};
+
+async function fetchAPI(url: string, options?: RequestInit) {
+  const response = await fetch(url, options);
+
+  if (!response.ok) {
+    throw new Error(`HTTP error: ${response.status}`);
+  }
+
+  if (response.status === 204) return null;
+
+  return response.json();
+}
+
+export function getDashboardSummary() {
+  return fetchAPI(`${API_BASE_URL}/dashboard/summary`);
+}
+
+export function getSalesSummary() {
+  return fetchAPI(`${API_BASE_URL}/sales/summary`);
+}
+
+export function getProducts() {
+  return fetchAPI(`${API_BASE_URL}/products`);
+}
+
+
+export function createProduct(product: Product) {
+  return fetchAPI(`${API_BASE_URL}/products`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(product),
   });
-
-  if (!response.ok) {
-    throw new Error("Failed to create product");
-  }
-
-  return response.json();
 }
 
-export async function deleteProduct(id: number) {
-  const response = await fetch(`${API_BASE_URL}/products/${id}`, {
-    method: "DELETE",
-  });
-
-  if (!response.ok) {
-    throw new Error("Failed to delete product");
-  }
-}
-
-export async function updateProduct(
-  id: number,
-  product: {
-    name: string;
-    size: string;
-    price: number;
-    stock: number;
-  }
-) {
-  const response = await fetch(`${API_BASE_URL}/products/${id}`, {
+export function updateProduct(id: number, product: Product) {
+  return fetchAPI(`${API_BASE_URL}/products/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(product),
   });
+}
 
-  if (!response.ok) {
-    throw new Error(`HTTP error: ${response.status}`);
-  }
+export function deleteProduct(id: number) {
+  return fetchAPI(`${API_BASE_URL}/products/${id}`, {
+    method: "DELETE",
+  });
+}
 
-  return response.json();
+export function createSale(sale: Sale) {
+  return fetchAPI(`${API_BASE_URL}/sales`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(sale),
+  });
+}
+
+export function getLowStockCount() {
+  return fetchAPI(`${API_BASE_URL}/products/low-stock`);
 }

@@ -43,4 +43,9 @@ public class ProductController {
     public void deleteProduct(@PathVariable Long id) {
         service.deleteProduct(id);
     }
+
+    @GetMapping("/low-stock")
+    public Long getLowStockCount() {
+        return service.getLowStockCount();
+    }
 }

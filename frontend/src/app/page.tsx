@@ -1,8 +1,8 @@
 import SummaryCard from "@/components/SummaryCard";
-import { getFinancialSummary } from "@/services/api";
+import { getDashboardSummary } from "@/services/api";
 
 export default async function Home() {
-  const summary = await getFinancialSummary();
+  const summary = await getDashboardSummary();
 
   return (
     <main className="p-8">

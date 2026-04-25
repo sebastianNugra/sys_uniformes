@@ -37,4 +37,9 @@ public class SaleController {
     public void deleteSale(@PathVariable Long id) {
         service.deleteSale(id);
     }
+
+    @GetMapping("/summary")
+    public Double getTotalSales() {
+        return service.getTotalSales();
+    }
 }

@@ -18,7 +18,7 @@ public class DashboardService {
         this.expenseRepository = expenseRepository;
     }
 
-    public FinancialSummaryDTO getFinancialSummary() {
+    public FinancialSummaryDTO getSalesSummary() {
         Double totalSales = saleRepository.getTotalSales();
         Double totalExpenses = expenseRepository.getTotalExpenses();
         Double netProfit = totalSales - totalExpenses;

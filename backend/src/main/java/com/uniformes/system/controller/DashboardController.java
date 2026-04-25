@@ -18,6 +18,6 @@ public class DashboardController {
 
     @GetMapping("/summary")
     public FinancialSummaryDTO getSummary() {
-        return service.getFinancialSummary();
+        return service.getSalesSummary();
     }
 }

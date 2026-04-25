@@ -27,7 +27,7 @@ public class ProductService {
 
     public Product getProductById(Long id) {
         return repository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
     public Product updateProduct(Long id, Product updatedProduct) {
@@ -44,5 +44,9 @@ public class ProductService {
 
     public void deleteProduct(Long id) {
         repository.deleteById(id);
+    }
+
+    public Long getLowStockCount() {
+        return repository.getLowStockCount();
     }
 }
