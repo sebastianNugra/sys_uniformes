@@ -1,10 +1,16 @@
 package com.uniformes.system.controller;
 
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.http.HttpHeaders;
 import com.uniformes.system.model.Sale;
 import com.uniformes.system.service.SaleService;
+import org.springframework.http.MediaType;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -41,5 +47,24 @@ public class SaleController {
     @GetMapping("/summary")
     public Double getTotalSales() {
         return service.getTotalSales();
+    }
+
+    @GetMapping("/export")
+    public ResponseEntity<InputStreamResource> exportSales()
+            throws IOException {
+
+        ByteArrayInputStream file = service.exportSalesToExcel();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(
+                "Content-Disposition",
+                "attachment; filename=ventas.xlsx");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentType(
+                        MediaType.parseMediaType(
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                .body(new InputStreamResource(file));
     }
 }

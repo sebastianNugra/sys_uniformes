@@ -49,4 +49,8 @@ public class ProductService {
     public Long getLowStockCount() {
         return repository.getLowStockCount();
     }
+
+    public List<Product> getLowStockProducts() {
+        return repository.findByStockLessThanEqual(3);
+    }
 }

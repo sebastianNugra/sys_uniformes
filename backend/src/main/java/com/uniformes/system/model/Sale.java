@@ -1,5 +1,7 @@
 package com.uniformes.system.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,4 +28,7 @@ public class Sale {
     private Double total;
 
     private String paymentMethod;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
 }

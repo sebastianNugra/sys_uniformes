@@ -48,4 +48,9 @@ public class ProductController {
     public Long getLowStockCount() {
         return service.getLowStockCount();
     }
+
+    @GetMapping("/low-stock/list")
+    public List<Product> getLowStockProducts() {
+        return service.getLowStockProducts();
+    }
 }
