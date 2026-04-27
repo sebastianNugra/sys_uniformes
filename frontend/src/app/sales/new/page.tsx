@@ -8,11 +8,9 @@ import {
 
 export default function NewSalePage() {
   const [products, setProducts] = useState<any[]>([]);
-  const [selectedProductId, setSelectedProductId] =
-    useState("");
+  const [selectedProductId, setSelectedProductId] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [paymentMethod, setPaymentMethod] =
-    useState("Efectivo");
+  const [paymentMethod, setPaymentMethod] = useState("Efectivo");
 
   useEffect(() => {
     loadProducts();
@@ -23,9 +21,7 @@ export default function NewSalePage() {
     setProducts(data);
   }
 
-  async function handleSubmit(
-    e: React.FormEvent
-  ) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const product = products.find(
@@ -53,47 +49,65 @@ export default function NewSalePage() {
   }
 
   return (
-    <main className="p-8 max-w-lg mx-auto">
-      <h1 className="text-3xl font-bold mb-6">
-        Registrar Venta
-      </h1>
+    <main className="space-y-6 max-w-lg mx-auto">
+      {/* HEADER */}
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">
+          Registrar Venta
+        </h1>
+        <p className="text-slate-400">
+          Selecciona productos y genera una venta
+        </p>
+      </div>
 
+      {/* FORM */}
       <form
         onSubmit={handleSubmit}
-        className="space-y-4"
+        className="
+          space-y-4
+          p-6
+          rounded-2xl
+          bg-slate-900/80
+          border border-slate-800
+          shadow-lg
+        "
       >
+        {/* PRODUCT */}
         <div>
-          <label className="block mb-2">
+          <label className="block text-sm text-slate-400 mb-2">
             Producto
           </label>
 
           <select
             value={selectedProductId}
             onChange={(e) =>
-              setSelectedProductId(
-                e.target.value
-              )
+              setSelectedProductId(e.target.value)
             }
-            className="w-full border p-2 rounded"
+            className="
+              w-full
+              bg-slate-800
+              border border-slate-700
+              text-slate-200
+              rounded-xl
+              p-3
+              focus:outline-none
+              focus:ring-2
+              focus:ring-indigo-500
+            "
           >
-            <option value="">
-              Seleccione producto
-            </option>
+            <option value="">Seleccione producto</option>
 
             {products.map((product) => (
-              <option
-                key={product.id}
-                value={product.id}
-              >
-                {product.name} - Stock:{" "}
-                {product.stock}
+              <option key={product.id} value={product.id}>
+                {product.name} — Stock: {product.stock}
               </option>
             ))}
           </select>
         </div>
 
+        {/* QUANTITY */}
         <div>
-          <label className="block mb-2">
+          <label className="block text-sm text-slate-400 mb-2">
             Cantidad
           </label>
 
@@ -101,28 +115,41 @@ export default function NewSalePage() {
             type="number"
             min="1"
             value={quantity}
-            onChange={(e) =>
-              setQuantity(
-                Number(e.target.value)
-              )
-            }
-            className="w-full border p-2 rounded"
+            onChange={(e) => setQuantity(Number(e.target.value))}
+            className="
+              w-full
+              bg-slate-800
+              border border-slate-700
+              text-slate-200
+              rounded-xl
+              p-3
+              focus:outline-none
+              focus:ring-2
+              focus:ring-indigo-500
+            "
           />
         </div>
 
+        {/* PAYMENT */}
         <div>
-          <label className="block mb-2">
+          <label className="block text-sm text-slate-400 mb-2">
             Método de pago
           </label>
 
           <select
             value={paymentMethod}
-            onChange={(e) =>
-              setPaymentMethod(
-                e.target.value
-              )
-            }
-            className="w-full border p-2 rounded"
+            onChange={(e) => setPaymentMethod(e.target.value)}
+            className="
+              w-full
+              bg-slate-800
+              border border-slate-700
+              text-slate-200
+              rounded-xl
+              p-3
+              focus:outline-none
+              focus:ring-2
+              focus:ring-indigo-500
+            "
           >
             <option>Efectivo</option>
             <option>Transferencia</option>
@@ -130,9 +157,21 @@ export default function NewSalePage() {
           </select>
         </div>
 
+        {/* BUTTON */}
         <button
           type="submit"
-          className="w-full bg-black text-white p-3 rounded"
+          className="
+            w-full
+            rounded-xl
+            bg-indigo-500
+            hover:bg-indigo-600
+            text-white
+            font-medium
+            py-3
+            transition
+            shadow-md
+            hover:shadow-lg
+          "
         >
           Registrar Venta
         </button>
