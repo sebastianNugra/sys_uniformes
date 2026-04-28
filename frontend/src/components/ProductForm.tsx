@@ -66,14 +66,34 @@ export default function ProductForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="mb-8 grid grid-cols-1 md:grid-cols-4 gap-4"
+      className="
+        mb-8
+        grid grid-cols-1 md:grid-cols-5
+        gap-4
+        p-6
+        rounded-2xl
+        bg-slate-900/80
+        border border-slate-700
+        shadow-lg
+      "
     >
       <input
         type="text"
         placeholder="Nombre"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="border rounded-lg p-3"
+        className="
+          bg-slate-800
+          border border-slate-700
+          text-slate-200
+          placeholder:text-slate-500
+          rounded-xl
+          p-3
+          focus:outline-none
+          focus:ring-2
+          focus:ring-indigo-500
+          transition
+        "
       />
 
       <input
@@ -81,7 +101,18 @@ export default function ProductForm({
         placeholder="Talla"
         value={size}
         onChange={(e) => setSize(e.target.value)}
-        className="border rounded-lg p-3"
+        className="
+          bg-slate-800
+          border border-slate-700
+          text-slate-200
+          placeholder:text-slate-500
+          rounded-xl
+          p-3
+          focus:outline-none
+          focus:ring-2
+          focus:ring-indigo-500
+          transition
+        "
       />
 
       <input
@@ -89,7 +120,18 @@ export default function ProductForm({
         placeholder="Precio"
         value={price}
         onChange={(e) => setPrice(e.target.value)}
-        className="border rounded-lg p-3"
+        className="
+          bg-slate-800
+          border border-slate-700
+          text-slate-200
+          placeholder:text-slate-500
+          rounded-xl
+          p-3
+          focus:outline-none
+          focus:ring-2
+          focus:ring-indigo-500
+          transition
+        "
       />
 
       <input
@@ -97,12 +139,34 @@ export default function ProductForm({
         placeholder="Stock"
         value={stock}
         onChange={(e) => setStock(e.target.value)}
-        className="border rounded-lg p-3"
+        className="
+          bg-slate-800
+          border border-slate-700
+          text-slate-200
+          placeholder:text-slate-500
+          rounded-xl
+          p-3
+          focus:outline-none
+          focus:ring-2
+          focus:ring-indigo-500
+          transition
+        "
       />
 
       <button
         type="submit"
-        className="rounded-lg border p-3"
+        className="
+          rounded-xl
+          bg-indigo-500
+          hover:bg-indigo-600
+          text-white
+          font-medium
+          p-3
+          transition-all
+          duration-200
+          shadow-md
+          hover:shadow-lg
+        "
       >
         {product ? "Actualizar" : "Guardar"}
       </button>
