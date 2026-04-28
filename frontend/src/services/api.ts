@@ -26,12 +26,8 @@ async function fetchAPI(url: string, options?: RequestInit) {
   return response.json();
 }
 
-export function getDashboardSummary() {
-  return fetchAPI(`${API_BASE_URL}/dashboard/summary`);
-}
-
 export function getSalesSummary() {
-  return fetchAPI(`${API_BASE_URL}/sales/summary`);
+  return fetchAPI(`${API_BASE_URL}/dashboard/summary`);
 }
 
 export function getProducts() {
@@ -86,5 +82,58 @@ export function getSales() {
 export function getLowStockProducts() {
   return fetchAPI(
     `${API_BASE_URL}/products/low-stock/list`
+  );
+}
+
+export async function exportSalesExcel() {
+  const response = await fetch(
+    `${API_BASE_URL}/sales/export`
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      "No se pudo exportar el Excel"
+    );
+  }
+
+  const blob = await response.blob();
+  const url = window.URL.createObjectURL(blob);
+
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "ventas.xlsx";
+
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  window.URL.revokeObjectURL(url);
+}
+
+export type Expense = {
+  id?: number;
+  description: string;
+  amount: number;
+};
+
+export function getExpenses() {
+  return fetchAPI(
+    `${API_BASE_URL}/expenses`
+  );
+}
+
+export function createExpense(
+  expense: Expense
+) {
+  return fetchAPI(
+    `${API_BASE_URL}/expenses`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
+      body: JSON.stringify(expense),
+    }
   );
 }
